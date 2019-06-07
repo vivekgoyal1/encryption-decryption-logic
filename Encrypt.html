@@ -1,0 +1,99 @@
+<html>
+    <head>
+        <title>Encryption Decryption</title>
+        <script>
+            function handleEncrypt() 
+            {
+            var key = document.getElementById("Key").value;
+            var message = document.getElementById("Encrypt").value;
+            var encrypted_message = encrypt(key, message);
+            var output_p=document.getElementById("ab")
+            output_p.innerHTML = encrypted_message;
+            }
+            function encrypt(key,message)
+            {
+            var key_length = key.length;
+                    for(var i = 0; i < message.length; i++ ){
+                        var char_code = message.charCodeAt(i);
+                        var increment = parseInt( key.charAt( i % key_length ) );
+                        char_code = char_code + increment;
+                        
+                        var new_char = String.fromCharCode(char_code);
+                    
+                        message = message.substr(0, i) + new_char + message.substr(i+1);
+                    }
+                    return message;
+            }
+         function handleDecrypt() {
+                    var key = document.getElementById("Key").value;
+                    var message = document.getElementById("Encrypt").value;
+                    var decrypted_message = decrypt(key, message);
+                    var output_p =  document.getElementById("ab");
+                    output_p.innerHTML = decrypted_message;
+                }
+        function decrypt(key, encrypted_message) {
+    
+                    var key_length = key.length;
+                    for(var i = 0; i < encrypted_message.length; i++ ){
+                        var char_code = encrypted_message.charCodeAt(i);
+                        var decrement = parseInt( key.charAt( i % key_length ) );
+                        char_code = char_code - decrement;
+                        
+                        var new_char = String.fromCharCode(char_code);
+                    
+                        encrypted_message = encrypted_message.substr(0, i) + new_char + encrypted_message.substr(i+1);
+                    }
+                    return encrypted_message;
+                }
+
+        
+        </script>
+        <style>
+            label{
+                font-size: 20px;
+            }
+            button{
+                margin-top: 50px;
+            }
+            .container{
+                margin:100px 250px 50px 250px;
+                text-align: center;
+                background-color:burlywood;
+                padding-bottom: 100px;
+                border: 4px dotted black;
+            }
+            #ab{
+                font-size: 30px;
+                margin-top: 40px;
+            }
+        </style>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        >
+    </head>
+    <body style="background-color:grey;">
+        <div class="container">
+        <h1>Encryption-Decryption</h1>
+            <br><br>
+        <form name="f1">
+            <div class="form-group col-md-offset-3 col-md-6">
+                <label>Text:</label><input type="text" class="input-lg form-control" id="Encrypt" placeholder="Enter Your Text Here" required>
+            </div>
+            <div style="margin-top: 20px;" class="form-group col-md-offset-3 col-md-6">
+                <label>Key:</label><input  type="text" class="input-lg form-control" id="Key" placeholder="Enter Your Key Here" required>
+            </div>
+            <div class="buttons">
+                <div class="col-md-offset-3 col-md-2">
+                    <button style="margin-top: 30px;" type="button" class="btn btn-primary btn-lg" onclick="handleEncrypt()">Encrypt</button>
+                </div>
+                <div class="col-md-offset-2 col-md-2">
+                    <button style="margin-top: 30px;" type="button" class="btn btn-danger btn-lg" onclick="handleDecrypt()">Decrypt</button>
+                </div>
+            </div>
+        </form>
+            <br>
+            <div class="col-md-offset-3 col-md-2">
+            <p id="ab" class="alert-danger"></p>
+            </div>
+        </div>
+    </body>
+</html>
